@@ -1,0 +1,41 @@
+/*@import url(https://fonts.googleapis.com/css?family=OpenSans&subset=latin,latin-ext);*/
+body {
+  margin: 0;
+  background: #000;
+}
+
+h1 {
+  font-size: 3rem;
+  text-transform: uppercase;
+  margin-top: 0;
+  letter-spacing: .2rem;
+}
+
+
+a {
+  display: inline-block;
+  font-size: 1rem;
+  letter-spacing: .05rem;
+  color: #fff;
+  text-decoration: none;
+  /*background:rgba(0,0,0,0.5);*/
+  padding: .3rem;
+  -webkit-transition: .6s background;
+  transition: .6s background;
+}
+a:hover{
+  background:rgba(0,0,0,0.3);
+  text-decoration: none;
+  color: white;
+}
+
+
+/* Mobile */
+/* ---------- */
+@media screen and (max-width: 500px) {
+  div{width:70%;}
+}
+@media screen and (max-device-width: 800px) {
+  html { background: url(../media/images/polina.jpg) #000 no-repeat center center fixed; }
+  #bgvid { display: none; }
+}
