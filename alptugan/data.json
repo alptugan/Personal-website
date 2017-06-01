@@ -1,0 +1,35 @@
+{
+  "menuFontSize": 26,
+  "homeFontSize": 15,
+  "homeName": "HOME",
+  "homeRed": 255,
+  "homeGreen":204,
+  "homeBlue": 0,
+
+ "items":[
+   {
+     "name":"works"
+   },
+   {
+     "name":"sound"
+
+   },
+   {
+     "name":"contact"
+
+   },
+   {
+     "name":"teaching"
+
+   },
+   {
+     "name":"about"
+
+   },
+   {
+     "name":"links"
+
+   }
+
+   ]
+}

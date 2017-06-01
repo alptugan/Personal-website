@@ -8,7 +8,7 @@ com.alptugan.Item = function( name,color,rad = 15)
   this.rad   = rad;
 
 
-  
+
 
   // private variable
   // get screen size
@@ -42,85 +42,156 @@ com.alptugan.Item = function( name,color,rad = 15)
     }
   };
 
-  // Event Callback
+  // Event Callback Windows resized
   windowResized(window, "resize", function(event) {
     sw = w.innerWidth || e.clientWidth || g.clientWidth;
     sh = w.innerHeight|| e.clientHeight|| g.clientHeight;
   });
 
+  // Event Callback mousedown
+  canvas.addEventListener("mousedown",onMouseDown,false);
 
-  // public function
-  this.getName = function( )
-  {
-    return this.value; // or name
-  }
+  // Event Callback mouseup
+  canvas.addEventListener("mouseup",onMouseUp,false);
 
+  /*
+  // Event Callback mouseover
+  canvas.addEventListener("mouseover",onMouseOver,false);
 
-  // private function
-  function drawItem(x,y,rad)
-  {
-    if (canvas.getContext){
-      ctx.fillStyle = color;
-      ctx.beginPath();
-      ctx.arc(x, y, rad, 0, Math.PI*2, true);
-      ctx.closePath();
-      ctx.fill();
+  // Event Callback mouseout
+  canvas.addEventListener("mouseout",onMouseOut,false);
+  */
+  // Event Callback mousemove
+  canvas.addEventListener("mousemove",onMouseMove,false);
 
-      ctx.font="10px Arial";
-      ctx.fillStyle = "#FFFFFF";
-      ctx.textAlign = "center";
-      ctx.fillText(name, x, y - rad - gapYText);
+  function onMouseDown(event) {
+    //console.log( event.screenY + " x " +  event.pageY)
+    if(event.pageX >  (x - rad) && event.pageX < (x + rad) && event.pageY > (y - rad) && event.pageY < (y + rad)) {
+      console.log("mouse down");
     }
   }
 
+  function onMouseUp(event) {
+    if(event.pageX >  (x - rad) && event.pageX < (x + rad) && event.pageY > (y - rad) && event.pageY < (y + rad)) {
+      console.log("mouse up");
 
-  function init() {
+      event.preventDefault();
 
-    console.log(sw + "  " + sh);
+      if (window.CustomEvent) {
+        var ctmEvent = new CustomEvent("clicked", {
+          detail: {
+            message: "hop",
+            time: new Date(),
+          },
+          bubbles: true,
+          cancelable: true
+        });
 
-    canvas.width = sw;
-    canvas.height = sh;
+        event.currentTarget.dispatchEvent(ctmEvent);
+      }
 
-    ctx = canvas.getContext("2d", {alpha: true});
-
-    WIDTH = canvas.width;
-    HEIGHT = canvas.height;
-
-    return setInterval(draw, 10);
-  }
-
-  function clear() {
-    ctx.clearRect(0, 0, WIDTH, HEIGHT);
-  }
-
-  // DRAW METHOD
-
-  function draw() {
-    clear();
-
-    x = sw * 0.5;
-    y = sh * 0.5;
-
-
-    drawItem(x, y, rad);
-
-    if(rad > 20) {
-      rad = 15;
     }
-
-
-    rad +=dx;
-    /* BOUNCE
-    if (x + dx > WIDTH || x + dx < 0)
-    dx = -dx;
-    if (y + dy > HEIGHT || y + dy < 0)
-    dy = -dy;
-
-    x += dx;
-    y += dy;
-    */
   }
 
-  init();
+  /*
+  function onMouseOver(event) {
+  if(event.pageX >  (x - rad) && event.pageX < (x + rad) && event.pageY > (y - rad) && event.pageY < (y + rad)) {
+  console.log("mouse over");
+}
+}
+
+function onMouseOut(event) {
+if(event.pageX >  (x - rad) && event.pageX < (x + rad) && event.pageY > (y - rad) && event.pageY < (y + rad)) {
+console.log("mouse out");
+}
+}
+*/
+
+function onMouseMove(event) {
+  if(event.pageX >  (x - rad) && event.pageX < (x + rad) && event.pageY > (y - rad) && event.pageY < (y + rad)) {
+    console.log("mouse over");
+    dx = 0.2;
+    name = "YES YOU CAN CLICK ON ME :)";
+  }else{
+    dx = 0.05;
+    name = "HOME";
+    console.log("mouse out");
+  }
+}
+
+
+// public function
+this.getName = function( )
+{
+  return this.value; // or name
+}
+
+
+// private function
+function drawItem(x,y,rad)
+{
+  if (canvas.getContext){
+    ctx.fillStyle = color;
+    ctx.beginPath();
+    ctx.arc(x, y, rad, 0, Math.PI*2, true);
+    ctx.closePath();
+    ctx.fill();
+
+    ctx.font="10px Arial";
+    ctx.fillStyle = "#FFFFFF";
+    ctx.textAlign = "center";
+    ctx.fillText(name, x, y - rad - gapYText);
+  }
+}
+
+
+function init() {
+
+  console.log(sw + "  " + sh);
+
+  canvas.width = sw;
+  canvas.height = sh;
+
+  ctx = canvas.getContext("2d", {alpha: true});
+
+  WIDTH = canvas.width;
+  HEIGHT = canvas.height;
+
+  return setInterval(draw, 10);
+}
+
+function clear() {
+  ctx.clearRect(0, 0, WIDTH, HEIGHT);
+}
+
+// DRAW METHOD
+
+function draw() {
+  clear();
+
+  x = sw * 0.5;
+  y = sh * 0.5;
+
+
+  drawItem(x, y, rad);
+
+  if(rad > 20) {
+    rad = 15;
+  }
+
+
+  rad +=dx;
+  /* BOUNCE
+  if (x + dx > WIDTH || x + dx < 0)
+  dx = -dx;
+  if (y + dy > HEIGHT || y + dy < 0)
+  dy = -dy;
+
+  x += dx;
+  y += dy;
+  */
+}
+
+init();
 
 };
